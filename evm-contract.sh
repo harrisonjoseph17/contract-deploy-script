@@ -87,7 +87,6 @@ rpc_url = "$RPC_URL"
 EOL
 show "Updated files with your given data"
 }
-
 deploy_contract() {
     echo -e "-----------------------------------"
     source "$SCRIPT_DIR/token_deployment/.env"
@@ -120,7 +119,8 @@ EOL
     show "Deploying ERC20 Token Contract $contract_number..." "progress"
     DEPLOY_OUTPUT=$(forge create "$SCRIPT_DIR/src/ZunXBT.sol:ZunXBT" \
         --rpc-url "$RPC_URL" \
-        --private-key "$PRIVATE_KEY")
+        --private-key "$PRIVATE_KEY" \
+        --broadcast)
 
     if [[ $? -ne 0 ]]; then
         show "Deployment of contract $contract_number failed." "error"
@@ -128,7 +128,7 @@ EOL
     fi
 
     CONTRACT_ADDRESS=$(echo "$DEPLOY_OUTPUT" | grep -oP 'Deployed to: \K(0x[a-fA-F0-9]{40})')
-    show "Contract $contract_number deployed successfully at address: $CONTRACT_ADDRESS"
+    show "✅ Contract $contract_number deployed successfully at address: $CONTRACT_ADDRESS"
 }
 
 deploy_multiple_contracts() {
