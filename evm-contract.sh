@@ -1,4 +1,15 @@
 #!/bin/bash
+#!/bin/bash
+
+# Check if forge is installed
+if ! command -v forge &> /dev/null; then
+    echo "⚠️ Foundry is not installed. Installing now..."
+    curl -L https://foundry.paradigm.xyz | bash
+    source ~/.bashrc
+    foundryup
+    echo "✅ Foundry installed successfully."
+fi
+
 
 curl -s https://raw.githubusercontent.com/zunxbt/logo/main/logo.sh | bash
 sleep 3
